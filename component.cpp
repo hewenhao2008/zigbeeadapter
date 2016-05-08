@@ -5,7 +5,7 @@
 
 int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 {
-	if (NULL == pComponentJsonRoot)
+	if (NULL == pComponentJsonRoot || NULL == szId)
 	{
 		printf("[ERROR]: <zigbee_register_component> pComponentJsonRoot is NULL!!!\n");
 		return -1;
@@ -35,7 +35,13 @@ int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 }
 
 cJSON *zigbee_register_component_request_success(char *szId)
-{
+{	
+	if (NULL == szId)
+	{
+		printf("[ERROR]: <zigbee_register_component_request_success> szId is NULL!!!\n");
+		return NULL;
+	}	
+	
 	cJSON *pComponentJsonSuccess = cJSON_CreateObject();
 	if (NULL == pComponentJsonSuccess)
 	{
