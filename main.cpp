@@ -164,7 +164,7 @@ int main()
 		if (NULL != pZigbeeComponentRet)
 		{
 			p = cJSON_Print(pZigbeeComponentRet);
-			PrintDebugLog("Fail = \n%s\n", p);
+			PrintDebugLog("[%s]\n%s %s:%d\n", __func__, p, __FILE__, __LINE__);
 		}
 		
 		cJSON_Delete(pZigbeeComponentRet);
