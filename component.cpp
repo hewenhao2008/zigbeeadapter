@@ -8,7 +8,7 @@ int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 {
 	if (NULL == pComponentJsonRoot || NULL == szId)
 	{
-		PrintErrorLog("[ERROR]: <zigbee_register_component> pComponentJsonRoot is NULL!!!\n");
+		PrintErrorLog("[ERROR]: <zigbee_register_component> pComponentJsonRoot is NULL!!!");
 		return -1;
 	}	
 	/*jsonrp*/
@@ -21,7 +21,7 @@ int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 	if(NULL == pSubJsonParams)
 	{
 		// create object faild, exit
-		PrintErrorLog("[ERROR]: <cJSON_CreateObject> error!!!\n");
+		PrintErrorLog("[ERROR]: <cJSON_CreateObject> error!!!");
 		cJSON_Delete(pComponentJsonRoot);
 		return -1;
 	}
@@ -76,7 +76,7 @@ cJSON *zigbee_register_component_request_fail(char *szId, char *szErrorCode, cha
 	cJSON * pSubJsonError = cJSON_CreateObject();
 	if (NULL == pSubJsonError)
 	{
-		PrintErrorLog("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pSubJsonError error!\n");		
+		PrintErrorLog("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pSubJsonError error!");		
 		cJSON_Delete(pComponentJsonFail);
 		return NULL;
 	}
