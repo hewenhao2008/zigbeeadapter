@@ -2,12 +2,13 @@
 #include "common.h"
 #include "cJSON.h"
 #include "component.h"
+#include "log.h"
 
 int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 {
 	if (NULL == pComponentJsonRoot || NULL == szId)
 	{
-		printf("[ERROR]: <zigbee_register_component> pComponentJsonRoot is NULL!!!\n");
+		PrintErrorLog("[ERROR]: <zigbee_register_component> pComponentJsonRoot is NULL!!!\n");
 		return -1;
 	}	
 	/*jsonrp*/
@@ -20,7 +21,7 @@ int zigbee_register_component_request(cJSON *pComponentJsonRoot, char *szId)
 	if(NULL == pSubJsonParams)
 	{
 		// create object faild, exit
-		printf("[ERROR]: <cJSON_CreateObject> error!!!\n");
+		PrintErrorLog("[ERROR]: <cJSON_CreateObject> error!!!\n");
 		cJSON_Delete(pComponentJsonRoot);
 		return -1;
 	}
@@ -38,14 +39,14 @@ cJSON *zigbee_register_component_request_success(char *szId)
 {	
 	if (NULL == szId)
 	{
-		printf("[ERROR]: <zigbee_register_component_request_success> szId is NULL!!!\n");
+		PrintErrorLog("[ERROR]: <zigbee_register_component_request_success> szId is NULL!!!\n");
 		return NULL;
 	}	
 	
 	cJSON *pComponentJsonSuccess = cJSON_CreateObject();
 	if (NULL == pComponentJsonSuccess)
 	{
-		printf("[ERROR]: <zigbee_register_component_request_success> cJSON_CreateObject error!\n");
+		PrintErrorLog("[ERROR]: <zigbee_register_component_request_success> cJSON_CreateObject error!\n");
 		return NULL;
 	}
 
@@ -60,13 +61,13 @@ cJSON *zigbee_register_component_request_fail(char *szId, char *szErrorCode, cha
 {	
 	if (NULL == szId || NULL == szErrorCode || NULL == szErrorMsg)
 	{
-		printf("[ERROR]: zigbee_register_component_request_fail error!\n");
+		PrintErrorLog("[ERROR]: zigbee_register_component_request_fail error!\n");
 		return NULL;
 	}
 	cJSON *pComponentJsonFail = cJSON_CreateObject();
 	if (NULL == pComponentJsonFail)
 	{
-		printf("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pComponentJsonFail error!\n");
+		PrintErrorLog("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pComponentJsonFail error!\n");
 		return NULL;
 	}
 	
@@ -75,7 +76,7 @@ cJSON *zigbee_register_component_request_fail(char *szId, char *szErrorCode, cha
 	cJSON * pSubJsonError = cJSON_CreateObject();
 	if (NULL == pSubJsonError)
 	{
-		printf("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pSubJsonError error!\n");		
+		PrintErrorLog("[ERROR]: <zigbee_register_component_request_fail> cJSON_CreateObject pSubJsonError error!\n");		
 		cJSON_Delete(pComponentJsonFail);
 		return NULL;
 	}

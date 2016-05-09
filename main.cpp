@@ -3,6 +3,7 @@
 #include <string.h>
 #include "cJSON.h"
 #include "component.h"
+#include "log.h"
 
 char * makeJson()
 {
@@ -118,7 +119,7 @@ int main()
 	pComponentJsonRoot = cJSON_CreateObject();
 	if (NULL == pComponentJsonRoot)
 	{
-		printf("[ERROR]: <main> cJSON_CreateObject error!!!\n");
+		PrintErrorLog("[ERROR]: <main> cJSON_CreateObject error!!!\n");
 		return -1;
 	}
 
@@ -132,12 +133,12 @@ int main()
 		//convert json list to string faild, exit
 		//because sub json pSubJson han been add to pJsonRoot, so just delete pJsonRoot, if you also delete pSubJson, it will coredump, and error is : double free
 		cJSON_Delete(pComponentJsonRoot);
-		printf("[ERROR]: <main> cJSON_Delete error!!!");
+		PrintErrorLog("[ERROR]: <main> cJSON_Delete error!!!");
 		return -1;
 	}
 
 	cJSON_Delete(pComponentJsonRoot);
-	printf("%s\n", p);
+	PrintDebugLog("%s\n", p);
 	//parseJson(p);                                                                                             
 	free(p);
 
@@ -145,14 +146,14 @@ int main()
 		cJSON *pZigbeeComponentRet = cJSON_CreateObject();
 		if (NULL == pZigbeeComponentRet)
 		{
-			printf("[ERROR]: cJSON_CreateObject pZigbeeComponentRet error!\n");
+			PrintErrorLog("[ERROR]: cJSON_CreateObject pZigbeeComponentRet error!\n");
 			return -1;
 		}
 		pZigbeeComponentRet = zigbee_register_component_request_success(szZigbeeComponentId);
 		if (NULL != pZigbeeComponentRet)
 		{
 			p = cJSON_Print(pZigbeeComponentRet);
-			printf("Success = \n%s\n", p);
+			PrintDebugLog("Success = \n%s\n", p);
 		}
 
 		memset(pZigbeeComponentRet, 0, sizeof(cJSON));
@@ -163,12 +164,14 @@ int main()
 		if (NULL != pZigbeeComponentRet)
 		{
 			p = cJSON_Print(pZigbeeComponentRet);
-			printf("Fail = \n%s\n", p);
+			PrintDebugLog("Fail = \n%s\n", p);
 		}
 		
 		cJSON_Delete(pZigbeeComponentRet);
 		free(p);
 	}
+
+	
 #endif
 	return 0;
 }
