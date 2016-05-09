@@ -21,7 +21,7 @@ endif
 #vpath %.cpp $(SRC_DIR)
 #vpath %.o $(SRC_DIR)
 #CFLAGS 编译选项
-CFLAGS = -w -Wall
+CFLAGS = -w -W -Wall
 
 #编译版本是DEBUG or RELEASE
 ACTION = release
@@ -39,9 +39,9 @@ APP_SRCS := $(wildcard $(APP_DIR)/*.cpp)
 APP_OBJS := $(APP_SRCS:.cpp=.o)
 
 $(TARGET):$(APP_OBJS)
-	@echo $(APP_SRCS)
-	@echo $(APP_OBJS)
-	$(CC) $(CFLAGS) $(APP_OBJS) -o $(TARGET)
+#	@echo $(APP_SRCS)
+#	@echo $(APP_OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
 clean:
 	rm -f $(APP_DIR)/*.o $(APP_DIR)/$(TARGET)
 	
