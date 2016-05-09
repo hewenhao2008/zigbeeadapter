@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+<<<<<<< HEAD
 #include <time.h>
 #include "log.h"
 
@@ -18,6 +19,16 @@ int Log_Print(const char * format, ...)
 	vsprintf(szBuf+len, format, list);
 	fprintf(stdout, szBuf);
 	fflush(stdout);
+=======
+#include "log.h"
+
+int Log_Print(const char * format, ...)
+{
+	va_list list;
+	va_start(list, format);
+    vprintf(format, list);
+    fflush(stdout);
+>>>>>>> f4a6de9769730d948469cb04e56c4748d5a0cd80
 	va_end(list);	
 	return 0;
 }
