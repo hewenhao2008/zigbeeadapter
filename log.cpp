@@ -27,7 +27,6 @@ int Debug_Log_Print(const char * format, ...)
 	}
 	fprintf(stdout, szBuf);
 	fflush(stdout);
-<<<<<<< HEAD
 	va_end(list);	
 	return 0;
 }
@@ -56,8 +55,6 @@ int Error_Log_Print(const char * format, ...)
 	}
 	fprintf(stdout, szBuf);
 	fflush(stdout);
-=======
->>>>>>> f939615f2616874b0f94d80d5f44d1db7c56297e
 	va_end(list);	
 	return 0;
 }
