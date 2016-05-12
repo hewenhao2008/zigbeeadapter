@@ -21,6 +21,7 @@ endif
 #vpath %.cpp $(SRC_DIR)
 #vpath %.o $(SRC_DIR)
 #CFLAGS 编译选项
+#LIBS =
 CFLAGS = -w -W -Wall
 
 #编译版本是DEBUG or RELEASE
@@ -41,7 +42,7 @@ APP_OBJS := $(APP_SRCS:.cpp=.o)
 $(TARGET):$(APP_OBJS)
 #	@echo $(APP_SRCS)
 #	@echo $(APP_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS)  $^ -o $@ -levent 
 clean:
 	rm -f $(APP_DIR)/*.o $(APP_DIR)/$(TARGET)
 	

@@ -4,6 +4,7 @@
 #include "cJSON.h"
 #include "component.h"
 #include "log.h"
+#include "net_socket.h"
 
 char * makeJson()
 {
@@ -111,7 +112,7 @@ int main()
 	parseJson(p);                                                                                             
 	free(p);
 #endif
-#if 1
+#if 0
 	char szZigbeeComponentId[COMPONENT_ID_LEN_MAX] = "1";
 	/*test Zigbee component interface*/
 	cJSON *pComponentJsonRoot = NULL;
@@ -170,8 +171,21 @@ int main()
 		cJSON_Delete(pZigbeeComponentRet);
 		free(p);
 	}
-
 	
 #endif
+#if 0
+	if (NULL == pZigbeeEventBase)
+	{
+		ZIGBEE_ERROR(("pZigbeeEventBase is NULL!"));
+		return -1;
+	}
+#endif	
+	int iRet = zigbee_net_server_Init();
+
+	if (0 != iRet)
+	{
+		ZIGBEE_ERROR(("zigbee_net_server_Init error!"));
+		return -1;
+	}
 	return 0;
 }

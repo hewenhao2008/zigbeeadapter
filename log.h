@@ -20,7 +20,7 @@ int log_time_print(void);
 	do{\
 		ZIGBEE_TRACE("[DEBUG]: ");\
 		log_time_print();\
-		ZIGBEE_TRACE (msg);\
+		ZIGBEE_TRACE msg;\
 		ZIGBEE_TRACE("[%s] %s:%d \n", __FUNCTION__, __FILE__,__LINE__);\
 	}while(0)
 
@@ -29,7 +29,7 @@ int log_time_print(void);
 			ZIGBEE_TRACE("\033[1;40;31m");\
 			ZIGBEE_TRACE("[ERROR]: ");\
 			log_time_print();\
-			ZIGBEE_TRACE (err);\
+			ZIGBEE_TRACE err;\
 			ZIGBEE_TRACE("[%s] %s:%d \033[0m \n",__FUNCTION__, __FILE__,__LINE__);\
 		}while(0)
 
