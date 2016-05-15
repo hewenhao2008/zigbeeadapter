@@ -3,8 +3,9 @@
 #include <string.h>
 #include "cJSON.h"
 #include "component.h"
+#include "stty.h"
 #include "log.h"
-#include "net_socket.h"
+//#include "net_socket.h"
 
 char * makeJson()
 {
@@ -180,12 +181,7 @@ int main()
 		return -1;
 	}
 #endif	
-	int iRet = zigbee_net_server_Init();
+	zigbee_stty_init(STTY_DEV);
 
-	if (0 != iRet)
-	{
-		ZIGBEE_ERROR(("zigbee_net_server_Init error!"));
-		return -1;
-	}
 	return 0;
 }
