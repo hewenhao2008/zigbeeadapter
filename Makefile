@@ -42,7 +42,7 @@ APP_OBJS := $(APP_SRCS:.cpp=.o)
 $(TARGET):$(APP_OBJS)
 #	@echo $(APP_SRCS)
 #	@echo $(APP_OBJS)
-	$(CC) $(CFLAGS)  $^ -o $@ -levent 
+	$(CC) $(CFLAGS)  $^ -o $@ -levent
 clean:
 	rm -f $(APP_DIR)/*.o $(APP_DIR)/$(TARGET)
 	

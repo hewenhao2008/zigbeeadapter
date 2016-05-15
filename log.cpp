@@ -25,7 +25,7 @@ int Debug_Log_Print(const char * format, ...)
 	{
 		szBuf[LOG_LEN_MAX-1] = '\0';
 	}
-	fprintf(stdout, szBuf);
+	fprintf(stdout, "%s", szBuf);
 	fflush(stdout);
 	va_end(list);	
 	return 0;
@@ -53,8 +53,8 @@ int Error_Log_Print(const char * format, ...)
 	{
 		szBuf[LOG_LEN_MAX-1] = '\0';
 	}
-	fprintf(stdout, szBuf);
-	fflush(stdout);
+	fprintf(stderr, "%s", szBuf);
+	fflush(stderr);
 	va_end(list);	
 	return 0;
 }

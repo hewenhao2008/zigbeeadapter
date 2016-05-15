@@ -19,7 +19,7 @@ int zigbee_stty_init(const char *pSttyDev)
 	char buffer[BUFF_SIZE] = {0};
 	struct termios opt = {0};
 
-	/*打开串口*/
+	/*?蚩???*/
 	stty_fd = open(pSttyDev, O_RDWR);
 	if (-1 == stty_fd)
 	{
@@ -29,27 +29,27 @@ int zigbee_stty_init(const char *pSttyDev)
 
 	ZIGBEE_DEBUG(("%s open success, waiting input...", pSttyDev));
 
-	/*获取当前串口参数*/
+	/*??取??前???诓???*/
 	tcgetattr(stty_fd, &opt);
-	tcflush(stty_fd, TCIOFFLUSH);
+	tcflush(stty_fd, TCIOFLUSH);
 
-	/*设置串口传输参数*/
-	/*波特率*/
+	/*???么??诖???????*/
+	/*??????*/
 	cfsetispeed(&opt, B19200);
 	cfsetospeed(&opt, B19200);
 
-	/*数据位*/
+	/*????位*/
 	opt.c_cflag &= ~CSIZE;
 	opt.c_iflag |= CS8;
 
-	/*奇偶位*/
+	/*??偶位*/
 	opt.c_cflag &= ~PARENB;
 	opt.c_iflag &- ~INPCK;
 
 	/*停止位*/
 	opt.c_cflag &= ~CSTOPB;
 
-	/*设置超时*/
+	/*???贸?时*/
 	opt.c_cc[VTIME] = 150;
 	opt.c_cc[VMIN] = 0;
 
@@ -61,5 +61,6 @@ int zigbee_stty_init(const char *pSttyDev)
 
 	tcflush(stty_fd, TCIOFLUSH);
 	
+
 	return 0;
 }
