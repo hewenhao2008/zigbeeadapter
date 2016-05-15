@@ -25,7 +25,7 @@ endif
 CFLAGS = -w -W -Wall
 
 #编译版本是DEBUG or RELEASE
-ACTION = release
+ACTION = release 
 
 ifeq ("$(ACTION)", "release")
 	CFLAGS += -O2
@@ -42,7 +42,7 @@ APP_OBJS := $(APP_SRCS:.cpp=.o)
 $(TARGET):$(APP_OBJS)
 #	@echo $(APP_SRCS)
 #	@echo $(APP_OBJS)
-	$(CC) $(CFLAGS)  $^ -o $@ -levent
+	$(CC) $(CFLAGS)  $^ -o $@ -lpthread -levent
 clean:
 	rm -f $(APP_DIR)/*.o $(APP_DIR)/$(TARGET)
 	

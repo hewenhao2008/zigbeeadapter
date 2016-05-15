@@ -1,9 +1,11 @@
 #include <stdio.h>                                                                                            
 #include <stdlib.h>
 #include <string.h>
+//#include <unistd.h>
+#include "register.h"
 #include "cJSON.h"
 #include "component.h"
-#include "stty.h"
+//#include "stty.h"
 #include "log.h"
 //#include "net_socket.h"
 
@@ -180,8 +182,13 @@ int main()
 		ZIGBEE_ERROR(("pZigbeeEventBase is NULL!"));
 		return -1;
 	}
-#endif	
-	zigbee_stty_init(STTY_DEV);
+#endif
+//	daemon(1,0);
+	zigbee_register_init();
+
+//	zigbee_stty_reg_init();
+
+//	zigbee_stty_init(STTY_DEV);
 
 	return 0;
 }
