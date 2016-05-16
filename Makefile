@@ -7,7 +7,7 @@ APP_DIR = .
 #操作系统位数（32 or 64）
 PLATFORM=$(shell uname -p)
 ifeq ("$(PLATFORM)", "x86_64")
-	TARGET = zigbeeadapter
+	TARGET = zigbeeadapter_64
 else
 	TARGET = zigbeeadapter_32
 endif

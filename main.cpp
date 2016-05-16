@@ -103,7 +103,7 @@ void parseJson(char * pMsg)
 	cJSON_Delete(pJson);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 #if 0	
 	char * p = makeJson();
@@ -183,7 +183,21 @@ int main()
 		return -1;
 	}
 #endif
-//	daemon(1,0);
+#if 0
+	unsigned int uiDaemon = 1;
+	if (argc > 1)
+	{
+		if(!strcmp(argv[1], "-n"))
+		{
+			uiDaemon = 0;
+		}
+	}
+	
+	if(0 != uiDaemon)
+	{
+		daemon(1,0);
+	}
+#endif
 	zigbee_register_init();
 
 //	zigbee_stty_reg_init();

@@ -15,4 +15,5 @@ void zigbee_register_init()
 	{
 		g_reg_events[reg_index]();
 	}
+	return ;
 }
