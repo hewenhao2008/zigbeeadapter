@@ -7,7 +7,6 @@
 #include "component.h"
 //#include "stty.h"
 #include "log.h"
-//#include "net_socket.h"
 
 char * makeJson()
 {
