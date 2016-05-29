@@ -1,6 +1,7 @@
 #include <stdio.h>                                                                                            
 #include <stdlib.h>
 #include <string.h>
+#include <curl/curl.h>
 //#include <unistd.h>
 #include "register.h"
 #include "cJSON.h"
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
 	parseJson(p);                                                                                             
 	free(p);
 #endif
-#if 0
+#if 1
 	char szZigbeeComponentId[COMPONENT_ID_LEN_MAX] = "1";
 	/*test Zigbee component interface*/
 	cJSON *pComponentJsonRoot = NULL;
@@ -197,11 +198,34 @@ int main(int argc, char *argv[])
 		daemon(1,0);
 	}
 #endif
-	zigbee_register_init();
+//	zigbee_register_init();
 
 //	zigbee_stty_reg_init();
 
 //	zigbee_stty_init(STTY_DEV);
 
+#if 1
+	CURL *curl;  
+	CURLcode res;
+	struct curl_slist *connect_to = NULL;
+	connect_to = curl_slist_append(connect_to, "121.42.156.167:8080");
+	curl_slist_append(); 
+	curl = curl_easy_init();
+	if(curl) {
+	  curl_easy_setopt(curl, CURLOPT_CONNECT_TO, connect_to);
+	  curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
+	 
+	  res = curl_easy_perform(curl);
+	  
+	  if(res != CURLE_OK)
+	  {
+      	fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+	  }
+	  /* always cleanup */
+	  curl_easy_cleanup(curl);
+	}
+	 
+	curl_slist_free_all(connect_to);
+#endif	
 	return 0;
 }
