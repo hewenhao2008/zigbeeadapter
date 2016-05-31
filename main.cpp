@@ -9,9 +9,9 @@
 //#include "stty.h"
 #include "log.h"
 
-char * makeJson()
+char * makeJson(cJSON *pJsonRoot)
 {
-	cJSON * pJsonRoot = NULL;
+//	cJSON * pJsonRoot = NULL;
 
 	pJsonRoot = cJSON_CreateObject();
 	if(NULL == pJsonRoot)
@@ -103,6 +103,13 @@ void parseJson(char * pMsg)
 	cJSON_Delete(pJson);
 }
 
+size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
+	ZIGBEE_DEBUG(("test %s", ptr));
+
+	return size*nmemb;
+}
+
 int main(int argc, char *argv[])
 {
 #if 0	
@@ -144,8 +151,8 @@ int main(int argc, char *argv[])
 	cJSON_Delete(pComponentJsonRoot);
 	ZIGBEE_DEBUG(("%s", p));
 	//parseJson(p);                                                                                             
-	free(p);
-
+	//free(p);
+#if 0
 	{
 		cJSON *pZigbeeComponentRet = cJSON_CreateObject();
 		if (NULL == pZigbeeComponentRet)
@@ -174,7 +181,7 @@ int main(int argc, char *argv[])
 		cJSON_Delete(pZigbeeComponentRet);
 		free(p);
 	}
-	
+#endif	
 #endif
 #if 0
 	if (NULL == pZigbeeEventBase)
@@ -207,25 +214,45 @@ int main(int argc, char *argv[])
 #if 1
 	CURL *curl;  
 	CURLcode res;
-	struct curl_slist *connect_to = NULL;
-	connect_to = curl_slist_append(connect_to, "121.42.156.167:8080");
-	curl_slist_append(); 
-	curl = curl_easy_init();
-	if(curl) {
-	  curl_easy_setopt(curl, CURLOPT_CONNECT_TO, connect_to);
-	  curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
-	 
-	  res = curl_easy_perform(curl);
-	  
-	  if(res != CURLE_OK)
-	  {
-      	fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-	  }
-	  /* always cleanup */
-	  curl_easy_cleanup(curl);
+	
+	curl_global_init(CURL_GLOBAL_ALL);
+
+	struct curl_slist *header = NULL;
+	header = curl_slist_append(header, "protocol: HIPC/1.0 request control/3");
+	curl_slist_append(header, "length: 1243");	
+	curl_slist_append(header, "checksum: 34532423");
+	curl_slist_append(header, "origin: user/1\r\n");
+//	curl_slist_append(header, "\r\n");
+	
+	curl_slist_append(header, p);
+	free(p);
+
+	if (NULL == header)
+	{
+		ZIGBEE_ERROR(("header error!\n"));
+		return -1;
 	}
-	 
-	curl_slist_free_all(connect_to);
+//	curl_slist_append(header, "length: 1243");
+	curl = curl_easy_init();
+	if(curl) 
+	{
+		curl_easy_setopt(curl, CURLOPT_URL, "127.0.0.1:8000");
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
+
+		res = curl_easy_perform(curl);
+
+		if(res != CURLE_OK)
+		{
+			fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+		}
+		/* always cleanup */
+		curl_slist_free_all(header);
+		curl_easy_cleanup(curl);
+	}
+
+	curl_global_cleanup();
+
 #endif	
 	return 0;
 }
